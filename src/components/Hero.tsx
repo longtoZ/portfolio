@@ -1,4 +1,5 @@
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { IoIosNotificationsOutline } from "react-icons/io";
 import { useState, useEffect } from 'react';
 import { FaGithub, FaFacebook, FaEnvelope } from 'react-icons/fa';
 import ProfilePicture from '../img/pfp.jpg';
@@ -11,6 +12,7 @@ export default function Hero() {
     const [roleIndex, setRoleIndex] = useState(0);
     const [isDeleting, setIsDeleting] = useState(false);
     const [typingSpeed, setTypingSpeed] = useState(150);
+    const [showToast, setShowToast] = useState(false);
 
     // Typing animation effect
     useEffect(() => {
@@ -484,10 +486,8 @@ export default function Hero() {
                                 />
                                 <button
                                     onClick={() => {
-                                        const link = document.createElement('a');
-                                        link.href = '/resume.pdf';
-                                        link.download = 'Resume.pdf';
-                                        link.click();
+                                        setShowToast(true);
+                                        setTimeout(() => setShowToast(false), 3000);
                                     }}
                                     style={{
                                         position: 'relative',
@@ -564,6 +564,91 @@ export default function Hero() {
                     </div>
                 </motion.div>
             </div>
+
+            {/* Toast Notification */}
+            <AnimatePresence>
+                {showToast && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 50, scale: 0.9 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                        style={{
+                            position: 'fixed',
+                            bottom: '16px',
+                            right: '16px',
+                            zIndex: 9999,
+                            maxWidth: '400px',
+                            padding: '20px 24px',
+                            background: 'rgba(255, 255, 255, 0.1)',
+                            backdropFilter: 'blur(20px)',
+                            border: '1px solid rgba(255, 255, 255, 0.2)',
+                            borderRadius: '16px',
+                            boxShadow: '0 20px 60px -10px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.1)',
+                            display: 'flex',
+                            alignItems: 'flex-start',
+                            gap: '12px',
+                        }}
+                    >
+                        {/* Icon */}
+                        <div
+                            style={{
+                                width: '24px',
+                                height: '24px',
+                                borderRadius: '50%',
+                                background: 'rgba(255, 255, 255, 0.15)',
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                fontSize: '20px',
+                                flexShrink: 0,
+                            }}
+                        >
+                            <IoIosNotificationsOutline />
+                        </div>
+                        {/* Content */}
+                        <div style={{ flex: 1 }}>
+                            <div
+                                style={{
+                                    fontSize: '14px',
+                                    fontWeight: 600,
+                                    color: 'var(--text-primary)',
+                                    marginBottom: '4px',
+                                }}
+                            >
+                                Resume Coming Soon!
+                            </div>
+                            <div
+                                style={{
+                                    fontSize: '13px',
+                                    color: 'var(--text-secondary)',
+                                    lineHeight: 1.5,
+                                }}
+                            >
+                                I'm currently working on my resume. Check back soon!
+                            </div>
+                        </div>
+                        {/* Close button */}
+                        <button
+                            onClick={() => setShowToast(false)}
+                            style={{
+                                background: 'transparent',
+                                border: 'none',
+                                color: 'var(--text-tertiary)',
+                                cursor: 'pointer',
+                                fontSize: '18px',
+                                padding: '4px',
+                                lineHeight: 1,
+                                transition: 'color 0.2s ease',
+                            }}
+                            onMouseOver={(e) => e.currentTarget.style.color = 'var(--text-primary)'}
+                            onMouseOut={(e) => e.currentTarget.style.color = 'var(--text-tertiary)'}
+                        >
+                            ×
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* CSS Keyframes for animations */}
             <style>{`

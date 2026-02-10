@@ -1,11 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Hero from './components/Hero';
 import About from './components/About';
-import Projects from './components/Projects';
-import Skills from './components/Skills';
-import Experience from './components/Experience';
-import Contact from './components/Contact';
 import Divider from './components/Divider';
 import Navigation from './components/Navigation';
 import ScrollProgress from './components/ScrollProgress';
@@ -13,6 +9,12 @@ import BackToTop from './components/BackToTop';
 import CustomCursor from './components/CustomCursor';
 import LoadingScreen from './components/LoadingScreen';
 import './index.css';
+
+// Lazy load heavy components for better performance
+const Projects = lazy(() => import('./components/Projects'));
+const Skills = lazy(() => import('./components/Skills'));
+const Experience = lazy(() => import('./components/Experience'));
+const Contact = lazy(() => import('./components/Contact'));
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -64,19 +66,27 @@ function App() {
             </div>
             <Divider variant="glow" />
             <div id="projects">
-              <Projects />
+              <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+                <Projects />
+              </Suspense>
             </div>
             <Divider variant="dots" />
             <div id="skills">
-              <Skills />
+              <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+                <Skills />
+              </Suspense>
             </div>
             <Divider variant="default" />
             <div id="experience">
-              <Experience />
+              <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+                <Experience />
+              </Suspense>
             </div>
             <Divider variant="gradient" />
             <div id="contact">
-              <Contact />
+              <Suspense fallback={<div style={{ minHeight: '400px' }} />}>
+                <Contact />
+              </Suspense>
             </div>
           </div>
         )}

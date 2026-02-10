@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaFacebook, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
@@ -9,27 +9,34 @@ interface SocialLink {
     description: string;
 }
 
-export default function Contact() {
-    const [copied, setCopied] = useState(false);
+const Contact = memo(function Contact() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [currentTime, setCurrentTime] = useState(new Date());
 
     const email = 'longto.xp@gmail.com';
 
-    // Update time every second
+    // Update time every second using requestAnimationFrame for better performance
     useEffect(() => {
-        const timer = setInterval(() => {
-            setCurrentTime(new Date());
-        }, 1000);
+        let rafId: number;
+        let lastSecond = -1;
 
-        return () => clearInterval(timer);
+        const updateTime = () => {
+            const now = new Date();
+            const currentSecond = now.getSeconds();
+
+            // Only update state when the second actually changes
+            if (currentSecond !== lastSecond) {
+                setCurrentTime(now);
+                lastSecond = currentSecond;
+            }
+
+            rafId = requestAnimationFrame(updateTime);
+        };
+
+        rafId = requestAnimationFrame(updateTime);
+
+        return () => cancelAnimationFrame(rafId);
     }, []);
-
-    const copyEmail = () => {
-        navigator.clipboard.writeText(email);
-        setCopied(true);
-        setTimeout(() => setCopied(false), 2000);
-    };
 
     const socialLinks: SocialLink[] = [
         {
@@ -613,4 +620,6 @@ export default function Contact() {
             </div>
         </section>
     );
-}
+});
+
+export default Contact;

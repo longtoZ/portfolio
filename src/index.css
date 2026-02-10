@@ -1,12 +1,5 @@
-/* ================================
-   FONTS - Cinematic Multi-Font System
-   Old Film Aesthetic meets Modern Design
-   ================================ */
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playfair+Display:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
-/* ================================
-   RESET & BASE STYLES
-   ================================ */
 * {
   margin: 0;
   padding: 0;
@@ -141,10 +134,6 @@ body {
   overflow-x: hidden;
 }
 
-/* ================================
-   SOPHISTICATED TEXTURED BACKGROUND
-   NO corner gradients - using patterns instead
-   ================================ */
 body {
   background-color: var(--bg-edge);
   /* Central spotlight + diagonal stripes + vignette + grid */
@@ -174,7 +163,7 @@ body {
     repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.01) 3px, rgba(0, 0, 0, 0.01) 6px);
 }
 
-/* Ambient glow with soft movement */
+/* Ambient glow with soft movement - optimized */
 body::before {
   content: '';
   position: fixed;
@@ -183,13 +172,16 @@ body::before {
     radial-gradient(ellipse 60% 50% at 50% 28%, rgba(255, 255, 255, 0.1), transparent 70%),
     radial-gradient(circle at 35% 65%, rgba(255, 255, 255, 0.05), transparent 55%),
     radial-gradient(circle at 65% 40%, rgba(255, 255, 255, 0.04), transparent 60%);
-  filter: blur(45px);
+  filter: blur(35px);
   opacity: 1;
   pointer-events: none;
   z-index: 0;
   mix-blend-mode: screen;
   animation: gentleAmbient 38s ease-in-out infinite;
   transition: opacity 500ms ease;
+  will-change: opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 :root[data-theme='light'] body::before {
@@ -198,10 +190,10 @@ body::before {
     radial-gradient(circle at 35% 65%, rgba(0, 0, 0, 0.03), transparent 55%),
     radial-gradient(circle at 65% 40%, rgba(0, 0, 0, 0.02), transparent 60%);
   mix-blend-mode: multiply;
-  filter: blur(45px);
+  filter: blur(35px);
 }
 
-/* Floating orbs with smooth animation */
+/* Floating orbs with smooth animation - optimized */
 body::after {
   content: '';
   position: fixed;
@@ -222,6 +214,9 @@ body::after {
   mix-blend-mode: screen;
   animation: smoothOrbFloat 32s ease-in-out infinite;
   transition: opacity 500ms ease;
+  will-change: background-position;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 :root[data-theme='light'] body::after {
@@ -244,7 +239,7 @@ body::after {
   overflow-x: hidden;
 }
 
-/* Film grain texture overlay - animated */
+/* Film grain texture overlay - optimized */
 #root::before {
   content: '';
   position: fixed;
@@ -258,9 +253,12 @@ body::after {
   opacity: 0.15;
   mix-blend-mode: overlay;
   animation: grainFlicker 0.3s steps(3) infinite, grainMove 8s steps(10) infinite;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
-/* Film vignette and light leaks */
+/* Film vignette and light leaks - optimized */
 #root::after {
   content: '';
   position: fixed;
@@ -273,6 +271,9 @@ body::after {
     inset 0 0 600px rgba(0, 0, 0, 0.2);
   mix-blend-mode: multiply;
   animation: vignetteBreath 6s ease-in-out infinite;
+  will-change: box-shadow;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 /* Light mode film effects */
@@ -295,9 +296,6 @@ body::after {
   min-height: 100vh;
 }
 
-/* ================================
-   SCROLLBAR STYLING
-   ================================ */
 ::-webkit-scrollbar {
   width: 8px;
 }
@@ -325,18 +323,11 @@ body::after {
   background: rgba(0, 0, 0, 0.4);
 }
 
-/* ================================
-   TYPOGRAPHY UTILITIES - Multi-Font Hierarchy
-   ================================ */
-
-/* H1 - Bebas Neue: Hero/Display - Film Poster Aesthetic */
 h1 {
   font-family: var(--font-display);
   font-weight: 400;
-  /* Bebas Neue looks best at normal weight */
   line-height: 1;
   letter-spacing: 0.02em;
-  /* Bebas Neue needs slight tracking */
   text-transform: uppercase;
   transition: letter-spacing 0.3s cubic-bezier(0.25, 0.1, 0.25, 1);
   text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
@@ -346,7 +337,6 @@ h1:hover {
   letter-spacing: 0.04em;
 }
 
-/* H2 - Playfair Display: Main Sections - Elegant Cinema */
 h2 {
   font-family: var(--font-heading);
   font-weight: 700;
@@ -360,7 +350,6 @@ h2:hover {
   letter-spacing: 0em;
 }
 
-/* H3, H4 - Space Grotesk: Subsections - Modern Geometric */
 h3,
 h4 {
   font-family: var(--font-subheading);
@@ -376,7 +365,6 @@ h4:hover {
   letter-spacing: 0.01em;
 }
 
-/* H5, H6 - Inter: Small Headings - Clean Modern */
 h5,
 h6 {
   font-family: var(--font-body);
@@ -389,7 +377,6 @@ h6 {
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Body text - optimal readability */
 p {
   font-family: var(--font-body);
   line-height: 1.7;
@@ -421,9 +408,6 @@ p {
   background-clip: text;
 }
 
-/* ================================
-   GLASS CARD BASE
-   ================================ */
 .glass-card {
   background: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -465,9 +449,6 @@ p {
     inset 0 0 0 1px rgba(0, 0, 0, 0.05);
 }
 
-/* ================================
-   CONTAINER
-   ================================ */
 .container {
   max-width: 1200px;
   margin: 0 auto;
@@ -480,9 +461,6 @@ p {
   }
 }
 
-/* ================================
-   SECTION SPACING
-   ================================ */
 .section {
   padding: 120px 0;
 }
@@ -493,9 +471,6 @@ p {
   }
 }
 
-/* ================================
-   BUTTON STYLES
-   ================================ */
 .btn {
   padding: 12px 32px;
   border: 1px solid var(--border-glow);
@@ -527,11 +502,6 @@ p {
   opacity: 0.9;
 }
 
-/* ================================
-   ANIMATIONS - Simplified & Optimized
-   ================================ */
-
-/* Film grain flicker - vintage film aesthetic */
 @keyframes grainFlicker {
 
   0%,
@@ -544,7 +514,6 @@ p {
   }
 }
 
-/* Film grain movement - organic texture */
 @keyframes grainMove {
 
   0%,
@@ -719,9 +688,6 @@ p {
   }
 }
 
-/* ================================
-   UTILITY CLASSES
-   ================================ */
 .flex-center {
   display: flex;
   align-items: center;
@@ -740,9 +706,6 @@ p {
   opacity: 0.7;
 }
 
-/* ================================
-   TEXT SELECTION STYLING
-   ================================ */
 ::selection {
   background: var(--text-primary);
   color: var(--bg-edge);
@@ -755,9 +718,6 @@ p {
   text-shadow: none;
 }
 
-/* ================================
-   CUSTOM CURSOR
-   ================================ */
 body {
   cursor: none;
 }
@@ -803,9 +763,6 @@ body {
   will-change: transform;
 }
 
-/* ================================
-   LINK STYLES
-   ================================ */
 a {
   color: inherit;
   text-decoration: none;
@@ -833,9 +790,6 @@ a:not([class*="btn"]):not([class*="glass-card"]):not([href^="#"]):not([style*="d
   width: 100%;
 }
 
-/* ================================
-   GRADIENT TEXT ANIMATIONS
-   ================================ */
 .gradient-text {
   display: inline-block;
   background: linear-gradient(90deg,
@@ -865,9 +819,6 @@ h3:hover {
   letter-spacing: 0.02em;
 }
 
-/* ================================
-   SCROLL REVEAL ANIMATIONS
-   ================================ */
 .reveal {
   opacity: 0;
   animation: fadeInUp 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) forwards;
@@ -897,11 +848,6 @@ h3:hover {
   }
 }
 
-/* ================================
-   RESPONSIVE DESIGN
-   ================================ */
-
-/* Tablet */
 @media (max-width: 1024px) {
   .container {
     padding: 0 20px;
