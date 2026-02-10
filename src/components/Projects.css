@@ -1,0 +1,12 @@
+/* Mobile responsive styles for Projects component */
+
+@media (max-width: 768px) {
+    .projects-tab-buttons {
+        flex-direction: row !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 100%;
+        padding: 0 16px;
+        flex-wrap: wrap;
+    }
+}

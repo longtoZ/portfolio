@@ -58,6 +58,7 @@ import Spacify from '../img/spacify.png';
 import ScoreGen2 from '../img/score-gen-2.png';
 import TrieImage from '../img/trie.png';
 import SimpleGamestoreImage from '../img/simple-gamestore.png';
+import './Projects.css';
 
 type ProjectType = 'primary' | 'side';
 
@@ -496,6 +497,7 @@ export default function Projects() {
 
                     {/* Tab Toggle - Premium Realistic Design */}
                     <div
+                        className="projects-tab-buttons"
                         style={{
                             display: 'flex',
                             justifyContent: 'center',

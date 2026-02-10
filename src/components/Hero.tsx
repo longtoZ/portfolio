@@ -303,7 +303,7 @@ export default function Hero() {
                                 <FaFacebook />
                             </motion.a>
                             <motion.a
-                                href="mailto:[EMAIL_ADDRESS]"
+                                href="mailto:longto.xp@gmail.com"
                                 whileHover={{ scale: 1.1, y: -4 }}
                                 style={{
                                     width: '48px',
@@ -360,6 +360,7 @@ export default function Hero() {
                             animate={{ opacity: 1 }}
                             transition={{ delay: 0.7 }}
                             style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}
+                            className="hero-buttons"
                         >
                             {/* View Projects Button - Filled with Edge Lighting */}
                             <div style={{ position: 'relative' }}>

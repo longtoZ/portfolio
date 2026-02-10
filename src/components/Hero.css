@@ -24,4 +24,8 @@
         justify-content: center !important;
         flex-wrap: wrap;
     }
+
+    .hero-buttons {
+        justify-content: center !important;
+    }
 }

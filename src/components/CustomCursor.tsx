@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
@@ -7,11 +7,13 @@ export default function CustomCursor() {
     const trailPos = useRef({ x: 0, y: 0 });
     const isHovering = useRef(false);
     const isClicking = useRef(false);
+    const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
         // Check if touch device
-        const isTouchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
-        if (isTouchDevice) return;
+        const touchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        setIsTouchDevice(touchDevice);
+        if (touchDevice) return;
 
         const cursor = cursorRef.current;
         const trail = trailRef.current;
@@ -37,16 +39,16 @@ export default function CustomCursor() {
         const handleMouseOver = (e: MouseEvent) => {
             const target = e.target as HTMLElement;
             const wasHovering = isHovering.current;
-            
+
             // Check if hovering over interactive elements
-            const newIsHovering = 
+            const newIsHovering =
                 target.tagName === 'A' ||
                 target.tagName === 'BUTTON' ||
                 target.closest('button') !== null ||
                 target.closest('a') !== null ||
                 target.classList.contains('glass-card') ||
                 window.getComputedStyle(target).cursor === 'pointer';
-            
+
             if (newIsHovering !== wasHovering) {
                 isHovering.current = newIsHovering;
                 if (newIsHovering) {
@@ -63,10 +65,10 @@ export default function CustomCursor() {
             // Smooth lerp with faster response
             trailPos.current.x += (mousePos.current.x - trailPos.current.x) * 0.25;
             trailPos.current.y += (mousePos.current.y - trailPos.current.y) * 0.25;
-            
+
             trail.style.left = `${trailPos.current.x}px`;
             trail.style.top = `${trailPos.current.y}px`;
-            
+
             animationFrameId = requestAnimationFrame(animateTrail);
         };
         animateTrail();
@@ -84,6 +86,11 @@ export default function CustomCursor() {
             cancelAnimationFrame(animationFrameId);
         };
     }, []);
+
+    // Don't render cursor on touch devices
+    if (isTouchDevice) {
+        return null;
+    }
 
     return (
         <>

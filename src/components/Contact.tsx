@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaFacebook, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 interface SocialLink {
     icon: React.ReactNode;
@@ -12,8 +12,18 @@ interface SocialLink {
 export default function Contact() {
     const [copied, setCopied] = useState(false);
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+    const [currentTime, setCurrentTime] = useState(new Date());
 
     const email = 'longto.xp@gmail.com';
+
+    // Update time every second
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setCurrentTime(new Date());
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, []);
 
     const copyEmail = () => {
         navigator.clipboard.writeText(email);
@@ -23,10 +33,10 @@ export default function Contact() {
 
     const socialLinks: SocialLink[] = [
         {
-            icon: <FaLinkedin />,
-            label: 'LinkedIn',
-            url: 'https://linkedin.com/',
-            description: 'Professional network',
+            icon: <FaFacebook />,
+            label: 'Facebook',
+            url: 'https://facebook.com/longto.has.fallen',
+            description: 'Social network',
         },
         {
             icon: <FaGithub />,
@@ -131,83 +141,239 @@ export default function Contact() {
                     </p>
                 </motion.div>
 
-                {/* Email Card - Highlighted */}
+                {/* Location & Timezone Display */}
                 <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.6, delay: 0.2 }}
-                    onClick={copyEmail}
                     style={{
-                        position: 'relative',
-                        padding: '48px 40px',
-                        background: 'rgba(255, 255, 255, 0.05)',
-                        backdropFilter: 'blur(40px)',
-                        border: '1px solid var(--border-medium)',
-                        borderRadius: '20px',
-                        marginBottom: '48px',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease',
-                    }}
-                    whileHover={{
-                        scale: 1.02,
-                        borderColor: 'var(--text-primary)',
+                        marginBottom: '60px',
                     }}
                 >
-                    {/* Glow effect */}
                     <motion.div
-                        animate={{
-                            opacity: [0.2, 0.4, 0.2],
-                        }}
-                        transition={{
-                            duration: 3,
-                            repeat: Infinity,
-                            ease: 'easeInOut',
-                        }}
+                        whileHover={{ y: -4 }}
+                        transition={{ duration: 0.3 }}
                         style={{
-                            position: 'absolute',
-                            inset: '-30px',
-                            background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1), transparent 70%)',
-                            filter: 'blur(40px)',
-                            pointerEvents: 'none',
+                            position: 'relative',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            backdropFilter: 'blur(20px)',
+                            border: '1px solid var(--border-subtle)',
+                            borderRadius: '24px',
+                            padding: '32px 40px',
+                            overflow: 'hidden',
+                            boxShadow: '0 20px 60px -10px rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255, 255, 255, 0.05)',
                         }}
-                    />
+                    >
+                        {/* Background Glow */}
+                        <motion.div
+                            animate={{
+                                opacity: [0.3, 0.5, 0.3],
+                                scale: [1, 1.1, 1],
+                            }}
+                            transition={{
+                                duration: 4,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            }}
+                            style={{
+                                position: 'absolute',
+                                top: '50%',
+                                left: '50%',
+                                transform: 'translate(-50%, -50%)',
+                                width: '300px',
+                                height: '300px',
+                                background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1), transparent 70%)',
+                                filter: 'blur(40px)',
+                                pointerEvents: 'none',
+                                zIndex: 0,
+                            }}
+                        />
 
-                    <div style={{ position: 'relative', zIndex: 1, textAlign: 'center' }}>
+                        {/* Corner Accents */}
                         <div
                             style={{
-                                fontSize: '12px',
-                                fontWeight: 600,
-                                letterSpacing: '0.15em',
-                                color: 'var(--text-tertiary)',
-                                textTransform: 'uppercase',
-                                marginBottom: '16px',
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '60px',
+                                height: '60px',
+                                borderTop: '2px solid rgba(255, 255, 255, 0.2)',
+                                borderLeft: '2px solid rgba(255, 255, 255, 0.2)',
+                                borderTopLeftRadius: '24px',
                             }}
-                        >
-                            Email Address
-                        </div>
+                        />
                         <div
                             style={{
-                                fontSize: 'clamp(24px, 4vw, 36px)',
-                                fontWeight: 700,
-                                color: 'var(--text-primary)',
-                                marginBottom: '8px',
-                                letterSpacing: '-0.02em',
+                                position: 'absolute',
+                                bottom: 0,
+                                right: 0,
+                                width: '60px',
+                                height: '60px',
+                                borderBottom: '2px solid rgba(255, 255, 255, 0.2)',
+                                borderRight: '2px solid rgba(255, 255, 255, 0.2)',
+                                borderBottomRightRadius: '24px',
                             }}
-                        >
-                            {email}
-                        </div>
+                        />
+
                         <div
                             style={{
-                                fontSize: '13px',
-                                color: copied ? '#34A853' : 'var(--text-secondary)',
-                                fontWeight: 500,
-                                transition: 'color 0.3s ease',
+                                position: 'relative',
+                                zIndex: 1,
+                                display: 'grid',
+                                gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))',
+                                gap: '32px',
+                                alignItems: 'center',
                             }}
                         >
-                            {copied ? '✓ Copied to clipboard!' : 'Click to copy'}
+                            {/* Location Info */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                <motion.div
+                                    animate={{
+                                        y: [0, -4, 0],
+                                    }}
+                                    transition={{
+                                        duration: 2,
+                                        repeat: Infinity,
+                                        ease: 'easeInOut',
+                                    }}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: '48px',
+                                        height: '48px',
+                                        borderRadius: '12px',
+                                        background: 'rgba(255, 255, 255, 0.08)',
+                                        border: '1px solid var(--border-subtle)',
+                                        fontSize: '20px',
+                                        color: 'var(--text-primary)',
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    <FaMapMarkerAlt />
+                                </motion.div>
+                                <div>
+                                    <div
+                                        style={{
+                                            fontSize: '12px',
+                                            color: 'var(--text-tertiary)',
+                                            marginBottom: '4px',
+                                            letterSpacing: '0.05em',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        Based in
+                                    </div>
+                                    <div
+                                        style={{
+                                            fontSize: '18px',
+                                            fontWeight: 700,
+                                            color: 'var(--text-primary)',
+                                            letterSpacing: '-0.01em',
+                                        }}
+                                    >
+                                        Ho Chi Minh, Vietnam
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Timezone & Clock */}
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                                <motion.div
+                                    animate={{
+                                        rotate: 360,
+                                    }}
+                                    transition={{
+                                        duration: 60,
+                                        repeat: Infinity,
+                                        ease: 'linear',
+                                    }}
+                                    style={{
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        width: '48px',
+                                        height: '48px',
+                                        borderRadius: '12px',
+                                        background: 'rgba(255, 255, 255, 0.08)',
+                                        border: '1px solid var(--border-subtle)',
+                                        fontSize: '20px',
+                                        color: 'var(--text-primary)',
+                                        flexShrink: 0,
+                                    }}
+                                >
+                                    <motion.div
+                                        animate={{
+                                            rotate: -360,
+                                        }}
+                                        transition={{
+                                            duration: 60,
+                                            repeat: Infinity,
+                                            ease: 'linear',
+                                        }}
+                                    >
+                                        <FaClock />
+                                    </motion.div>
+                                </motion.div>
+                                <div>
+                                    <div
+                                        style={{
+                                            fontSize: '12px',
+                                            color: 'var(--text-tertiary)',
+                                            marginBottom: '4px',
+                                            letterSpacing: '0.05em',
+                                            textTransform: 'uppercase',
+                                            fontWeight: 600,
+                                        }}
+                                    >
+                                        Local Time (GMT+7)
+                                    </div>
+                                    <div
+                                        style={{
+                                            fontSize: '18px',
+                                            fontWeight: 700,
+                                            color: 'var(--text-primary)',
+                                            fontVariantNumeric: 'tabular-nums',
+                                            letterSpacing: '0.02em',
+                                        }}
+                                    >
+                                        {currentTime.toLocaleTimeString('en-US', {
+                                            hour: '2-digit',
+                                            minute: '2-digit',
+                                            second: '2-digit',
+                                            hour12: true,
+                                            timeZone: 'Asia/Bangkok',
+                                        })}
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+
+                        {/* Bottom accent line */}
+                        <motion.div
+                            animate={{
+                                scaleX: [0.5, 1, 0.5],
+                                opacity: [0.3, 0.6, 0.3],
+                            }}
+                            transition={{
+                                duration: 3,
+                                repeat: Infinity,
+                                ease: 'easeInOut',
+                            }}
+                            style={{
+                                position: 'absolute',
+                                bottom: 0,
+                                left: '50%',
+                                transform: 'translateX(-50%)',
+                                width: '60%',
+                                height: '2px',
+                                background: 'linear-gradient(90deg, transparent, var(--text-primary), transparent)',
+                                transformOrigin: 'center',
+                            }}
+                        />
+                    </motion.div>
                 </motion.div>
 
                 {/* Social Links Grid */}
