@@ -30,7 +30,7 @@ function StatCard({ stat, index }: StatCardProps) {
     // Counter animation
     useEffect(() => {
         if (hasAnimated) return;
-        const target = parseInt(stat.value);
+        const target = parseFloat(stat.value);
         if (isNaN(target)) return;
 
         let current = 0;

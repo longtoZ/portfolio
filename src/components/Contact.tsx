@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from 'react';
 import { motion } from 'framer-motion';
-import { FaGithub, FaFacebook, FaEnvelope, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
+import { FaGithub, FaFacebook, FaLinkedin, FaMapMarkerAlt, FaClock } from 'react-icons/fa';
 
 interface SocialLink {
     icon: React.ReactNode;
@@ -12,8 +12,6 @@ interface SocialLink {
 const Contact = memo(function Contact() {
     const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
     const [currentTime, setCurrentTime] = useState(new Date());
-
-    const email = 'longto.xp@gmail.com';
 
     // Update time every second using requestAnimationFrame for better performance
     useEffect(() => {
@@ -52,10 +50,10 @@ const Contact = memo(function Contact() {
             description: 'Code repositories',
         },
         {
-            icon: <FaEnvelope />,
-            label: 'Email',
-            url: `mailto:${email}`,
-            description: 'Direct message',
+            icon: <FaLinkedin />,
+            label: 'LinkedIn',
+            url: 'https://www.linkedin.com/in/long-to/',
+            description: 'Qualified network',
         }
     ];
 
@@ -393,7 +391,7 @@ const Contact = memo(function Contact() {
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(170px, 1fr))',
                         gap: '20px',
-                        marginBottom: '80px',
+                        marginBottom: '200px',
                     }}
                 >
                     {socialLinks.map((link, index) => {

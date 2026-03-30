@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { useState, useEffect } from 'react';
-import { FaGithub, FaFacebook, FaEnvelope } from 'react-icons/fa';
+import { FaGithub, FaFacebook, FaLinkedin } from 'react-icons/fa';
 import ProfilePicture from '../img/pfp.jpg';
 import './Hero.css';
 
@@ -305,7 +305,7 @@ export default function Hero() {
                                 <FaFacebook />
                             </motion.a>
                             <motion.a
-                                href="mailto:longto.xp@gmail.com"
+                                href="https://www.linkedin.com/in/long-to/"
                                 whileHover={{ scale: 1.1, y: -4 }}
                                 style={{
                                     width: '48px',
@@ -331,7 +331,7 @@ export default function Hero() {
                                     e.currentTarget.style.boxShadow = 'none';
                                 }}
                             >
-                                <FaEnvelope />
+                                <FaLinkedin />
                             </motion.a>
                         </motion.div>
 

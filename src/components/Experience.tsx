@@ -19,6 +19,16 @@ const experiences: Experience[] = [
             'Pursuing a Bachelor\'s degree in Software Engineering with a focus on software development and data structures.',
             'Engaged in various projects and coursework that enhance problem-solving and coding skills.',
         ],
+    },
+    {
+        id: '2',
+        company: 'Swinburne University of Technology, Vietnam',
+        role: 'Top 4 Finalist - Swin Hackathon 2026',
+        period: '2026',
+        impacts: [
+            'Participated in the Swin Hackathon 2026, collaborating with a team to develop an innovative solution in FinTech.',
+            'Built a multi-agent system that utilizes AI to optimize financial decision-making, connecting to AWS services for data processing and analysis.',
+        ]
     }
 ];
 

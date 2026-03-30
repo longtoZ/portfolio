@@ -41,12 +41,20 @@ import {
     SiCss3,
     SiSelenium,
     SiGmail,
-    SiJest
+    SiJest,
+    SiLangchain,
+    SiTextpattern,
+    SiAmazons3,
+    SiCodesandbox,
+    SiFastapi,
+    SiSqlalchemy,
 } from 'react-icons/si';
 import {
     FaWindows
 } from 'react-icons/fa';
+import { TbVectorTriangle } from "react-icons/tb";
 import type { ReactElement } from 'react';
+import FinAdvisor from '../img/finadvisor.png';
 import SmartRestaurantImage from '../img/smart-restaurant.png';
 import CineMinImage from '../img/cinemin.png';
 import ForumusImage from '../img/forumus.png';
@@ -126,9 +134,37 @@ const techIcons: Record<string, ReactElement> = {
     'Selenium': <SiSelenium />,
     'Gmail API': <SiGmail />,
     'Jest': <SiJest />,
+    'LangGraph': <SiLangchain />,
+    'Textract': <SiTextpattern />,
+    'S3': <SiAmazons3 />,
+    'Lambda': <SiCodesandbox />,
+    'FastAPI': <SiFastapi />,
+    'SQLAlchemy': <SiSqlalchemy />,
+    'Pinecone': <TbVectorTriangle />,
 };
 
 const projects: Project[] = [
+    {
+        id: '1',
+        type: 'primary',
+        name: 'FinAdvisor - AI',
+        description: 'FinAdvisor AI is a multi-agent financial advisory solution designed to help SMEs manage finances, build credible profiles, and access financial services. Built on LangGraph, it uses specialized AI agents to process informal business data and provide accurate, safe guidance.',
+        role: 'Agent Architect and Backend Developer',
+        timeline: 'Feb 2026 - March 2026',
+        features: [
+            'Four layers with eight specialized agents for comprehensive financial advisory. Each layer focuses on specific tasks, from data processing to response validation, ensuring accurate and reliable advice.',
+            'Numerical hallucination mitigation with advanced validation and feedback loops. All calculations are executed in a secure sandbox environment, and results are cross-verified by multiple agents to prevent errors.',
+            'Dynamic agent orchestration based on user queries. The system intelligently routes requests to the appropriate agents, optimizing response time and relevance.',
+            'RAG-based knowledge retrieval for up-to-date financial information.',
+            'Real-time thinking steps visualization for user transparency. Users can see the reasoning process behind each recommendation, enhancing trust and understanding.',
+            'Rich UI tooling for interactive user engagement. The response can include tables, charts and modifiable canvas elements, allowing users to explore different scenarios and outcomes based on the AI\'s advice.',
+            'Tree-based conversation management for contextual understanding. The system maintains a structured conversation history, enabling it to reference past interactions and provide contextually relevant advice.',
+        ],
+        tech: ['LangGraph', 'Pinecone', 'Textract', 'S3', 'Lambda', 'Pandas', 'FastAPI', 'Gemini API', 'SQLAlchemy', 'Redis', 'React', 'TailwindCSS'],
+        image: FinAdvisor,
+        github: 'https://github.com/Snackathon-Swin-Hackathon',
+        demo: 'https://youtu.be/QMLR-y0EsoQ',
+    },
     {
         id: '1',
         type: 'primary',
