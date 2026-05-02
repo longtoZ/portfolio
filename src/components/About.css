@@ -1,0 +1,51 @@
+/* About Section Styling */
+
+.stat-card {
+  /* Dark mode (default) */
+  --card-bg-light: rgba(255, 255, 255, 0.08);
+  --card-bg-dark: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode adjustments */
+:root[data-theme='light'] .stat-card {
+  --card-bg-light: rgba(0, 0, 0, 0.04);
+  --card-bg-dark: rgba(0, 0, 0, 0.02);
+  --card-border: rgba(0, 0, 0, 0.12);
+}
+
+.highlight-card {
+  /* Dark mode (default) */
+  --card-bg-light: rgba(255, 255, 255, 0.08);
+  --card-bg-dark: rgba(255, 255, 255, 0.03);
+  --card-border: rgba(255, 255, 255, 0.15);
+}
+
+/* Light mode adjustments */
+:root[data-theme='light'] .highlight-card {
+  --card-bg-light: rgba(0, 0, 0, 0.04);
+  --card-bg-dark: rgba(0, 0, 0, 0.02);
+  --card-border: rgba(0, 0, 0, 0.12);
+}
+
+/* Gradient border styling for both themes */
+.stat-card::before,
+.highlight-card::before {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 100%);
+}
+
+:root[data-theme='light'] .stat-card::before,
+:root[data-theme='light'] .highlight-card::before {
+  background: linear-gradient(135deg, rgba(0, 0, 0, 0.15) 0%, rgba(0, 0, 0, 0.05) 100%);
+}
+
+/* Top accent bar styling */
+.stat-card::after,
+.highlight-card::after {
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.7), transparent);
+}
+
+:root[data-theme='light'] .stat-card::after,
+:root[data-theme='light'] .highlight-card::after {
+  background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.3), transparent);
+}

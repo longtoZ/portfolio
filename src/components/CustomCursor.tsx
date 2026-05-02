@@ -10,8 +10,12 @@ export default function CustomCursor() {
     const [isTouchDevice, setIsTouchDevice] = useState(false);
 
     useEffect(() => {
-        // Check if touch device
-        const touchDevice = window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        // Check if touch device using multiple methods for better reliability
+        const touchDevice = 
+            ('ontouchstart' in window) ||
+            (navigator.maxTouchPoints > 0) ||
+            window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+        
         setIsTouchDevice(touchDevice);
         if (touchDevice) return;
 

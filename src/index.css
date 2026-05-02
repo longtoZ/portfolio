@@ -137,6 +137,7 @@ body {
 body {
   background-color: var(--bg-edge);
   /* Central spotlight + diagonal stripes + vignette + grid */
+  /* COMMENTED OUT - Performance optimization: Too many background effects causing lag */
   background-image:
     radial-gradient(ellipse 85% 75% at 50% 35%, rgba(255, 255, 255, 0.12) 0%, rgba(255, 255, 255, 0.06) 30%, rgba(255, 255, 255, 0.02) 55%, transparent 75%),
     repeating-linear-gradient(45deg, transparent, transparent 60px, rgba(255, 255, 255, 0.01) 60px, rgba(255, 255, 255, 0.01) 62px),
@@ -154,6 +155,7 @@ body {
 }
 
 /* Light mode background */
+/* COMMENTED OUT - Performance optimization */
 :root[data-theme='light'] body {
   background-image:
     radial-gradient(ellipse 85% 75% at 50% 35%, rgba(0, 0, 0, 0.06) 0%, rgba(0, 0, 0, 0.03) 30%, rgba(0, 0, 0, 0.01) 55%, transparent 75%),
@@ -162,29 +164,29 @@ body {
     radial-gradient(ellipse 100% 100% at 50% 50%, transparent 0%, transparent 60%, rgba(255, 255, 255, 0.5) 90%, rgba(255, 255, 255, 0.8) 100%),
     repeating-linear-gradient(0deg, transparent, transparent 3px, rgba(0, 0, 0, 0.01) 3px, rgba(0, 0, 0, 0.01) 6px);
 }
-
 /* Ambient glow with soft movement - optimized */
+/* COMMENTED OUT - Performance optimization: Expensive animation */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 28%, rgba(255, 255, 255, 0.1), transparent 70%),
-    radial-gradient(circle at 35% 65%, rgba(255, 255, 255, 0.05), transparent 55%),
-    radial-gradient(circle at 65% 40%, rgba(255, 255, 255, 0.04), transparent 60%);
+    radial-gradient(ellipse 60% 50% at 50% 28%, rgba(255, 255, 255, 0.15), transparent 70%),
+    radial-gradient(circle at 35% 65%, rgba(255, 255, 255, 0.075), transparent 55%),
+    radial-gradient(circle at 65% 40%, rgba(255, 255, 255, 0.06), transparent 60%);
   filter: blur(35px);
   opacity: 1;
   pointer-events: none;
   z-index: 0;
   mix-blend-mode: screen;
-  animation: gentleAmbient 38s ease-in-out infinite;
+  animation: gentleAmbient 15s ease-in-out infinite;
   transition: opacity 500ms ease;
   will-change: opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
 }
-
 :root[data-theme='light'] body::before {
+  /* COMMENTED OUT - Performance optimization */
   background:
     radial-gradient(ellipse 60% 50% at 50% 28%, rgba(0, 0, 0, 0.04), transparent 70%),
     radial-gradient(circle at 35% 65%, rgba(0, 0, 0, 0.03), transparent 55%),
@@ -194,7 +196,8 @@ body::before {
 }
 
 /* Floating orbs with smooth animation - optimized */
-body::after {
+/* COMMENTED OUT - Performance optimization: Expensive animation */
+/* body::after {
   content: '';
   position: fixed;
   inset: 0;
@@ -217,10 +220,11 @@ body::after {
   will-change: background-position;
   transform: translateZ(0);
   backface-visibility: hidden;
-}
+} */
 
 :root[data-theme='light'] body::after {
-  background-image:
+  /* COMMENTED OUT - Performance optimization */
+  /* background-image:
     radial-gradient(circle 3.5px at 28% 22%, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.03) 60%, transparent),
     radial-gradient(circle 3px at 72% 58%, rgba(0, 0, 0, 0.07), rgba(0, 0, 0, 0.025) 60%, transparent),
     radial-gradient(circle 2.5px at 42% 72%, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.02) 60%, transparent),
@@ -228,7 +232,7 @@ body::after {
     radial-gradient(circle 2px at 18% 68%, rgba(0, 0, 0, 0.055), rgba(0, 0, 0, 0.02) 60%, transparent),
     radial-gradient(circle at 1px 1px, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
   opacity: 0.6;
-  mix-blend-mode: multiply;
+  mix-blend-mode: multiply; */
 }
 
 #root {
@@ -240,7 +244,8 @@ body::after {
 }
 
 /* Film grain texture overlay - optimized */
-#root::before {
+/* COMMENTED OUT - Performance optimization: Expensive SVG filter + animations */
+/* #root::before {
   content: '';
   position: fixed;
   inset: -5%;
@@ -256,7 +261,7 @@ body::after {
   will-change: transform, opacity;
   transform: translateZ(0);
   backface-visibility: hidden;
-}
+} */
 
 /* Film vignette and light leaks - optimized */
 #root::after {
@@ -277,12 +282,14 @@ body::after {
 }
 
 /* Light mode film effects */
-:root[data-theme='light'] #root::before {
+/* COMMENTED OUT - Performance optimization */
+/* :root[data-theme='light'] #root::before {
   opacity: 0.08;
   mix-blend-mode: soft-light;
-}
+} */
 
 :root[data-theme='light'] #root::after {
+  /* COMMENTED OUT - Performance optimization */
   box-shadow:
     inset 0 0 200px rgba(255, 255, 255, 0.6),
     inset 0 0 400px rgba(255, 255, 255, 0.4),

@@ -1,6 +1,7 @@
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { useState, useRef, useEffect } from 'react';
 import { FaCode, FaGraduationCap, FaRocket } from 'react-icons/fa';
+import './About.css';
 
 interface StatCardProps {
     stat: { value: string; label: string; detail: string };
@@ -18,23 +19,14 @@ function StatCard({ stat, index }: StatCardProps) {
     const [hasAnimated, setHasAnimated] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
 
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const springX = useSpring(mouseX, { damping: 20, stiffness: 200 });
-    const springY = useSpring(mouseY, { damping: 20, stiffness: 200 });
-
-    const rotateX = useTransform(springY, [-100, 100], [3, -3]);
-    const rotateY = useTransform(springX, [-100, 100], [-3, 3]);
-
-    // Counter animation
+    // Counter animation - simplified for performance
     useEffect(() => {
         if (hasAnimated) return;
         const target = parseFloat(stat.value);
         if (isNaN(target)) return;
 
         let current = 0;
-        const increment = target / 50;
+        const increment = target / 25;
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
@@ -44,24 +36,13 @@ function StatCard({ stat, index }: StatCardProps) {
             } else {
                 setCount(Math.floor(current));
             }
-        }, 30);
+        }, 60);
 
         return () => clearInterval(timer);
     }, [hasAnimated, stat.value]);
 
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        mouseX.set(e.clientX - centerX);
-        mouseY.set(e.clientY - centerY);
-    };
-
     const handleMouseLeave = () => {
         setIsHovered(false);
-        mouseX.set(0);
-        mouseY.set(0);
     };
 
     return (
@@ -71,136 +52,46 @@ function StatCard({ stat, index }: StatCardProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1 }}
-            onMouseMove={handleMouseMove}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={handleMouseLeave}
+            className="stat-card"
             style={{
                 position: 'relative',
                 padding: '40px 32px',
-                background: isHovered ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                border: `1px solid ${isHovered ? 'var(--border-glow)' : 'var(--border-subtle)'}`,
-                borderRadius: '16px',
+                background: 'linear-gradient(135deg, var(--card-bg-light) 0%, var(--card-bg-dark) 100%)',
+                border: '1.5px solid var(--card-border)',
+                borderRadius: '20px',
                 overflow: 'hidden',
                 cursor: 'pointer',
-                rotateX,
-                rotateY,
-                transformStyle: 'preserve-3d',
-                transition: 'background 0.3s ease, border 0.3s ease',
+                transition: 'all 0.3s ease',
             }}
             whileHover={{ scale: 1.02 }}
         >
-            {/* Corner Brackets - Top Left */}
-            <motion.div
-                initial={{ width: 0, height: 0 }}
-                animate={isHovered ? { width: '20px', height: '20px' } : { width: '12px', height: '12px' }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    top: '16px',
-                    left: '16px',
-                    borderTop: '2px solid var(--border-glow)',
-                    borderLeft: '2px solid var(--border-glow)',
-                    opacity: isHovered ? 1 : 0.3,
-                }}
-            />
-            {/* Corner Brackets - Top Right */}
-            <motion.div
-                initial={{ width: 0, height: 0 }}
-                animate={isHovered ? { width: '20px', height: '20px' } : { width: '12px', height: '12px' }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    top: '16px',
-                    right: '16px',
-                    borderTop: '2px solid var(--border-glow)',
-                    borderRight: '2px solid var(--border-glow)',
-                    opacity: isHovered ? 1 : 0.3,
-                }}
-            />
-            {/* Corner Brackets - Bottom Left */}
-            <motion.div
-                initial={{ width: 0, height: 0 }}
-                animate={isHovered ? { width: '20px', height: '20px' } : { width: '12px', height: '12px' }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    bottom: '16px',
-                    left: '16px',
-                    borderBottom: '2px solid var(--border-glow)',
-                    borderLeft: '2px solid var(--border-glow)',
-                    opacity: isHovered ? 1 : 0.3,
-                }}
-            />
-            {/* Corner Brackets - Bottom Right */}
-            <motion.div
-                initial={{ width: 0, height: 0 }}
-                animate={isHovered ? { width: '20px', height: '20px' } : { width: '12px', height: '12px' }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    bottom: '16px',
-                    right: '16px',
-                    borderBottom: '2px solid var(--border-glow)',
-                    borderRight: '2px solid var(--border-glow)',
-                    opacity: isHovered ? 1 : 0.3,
-                }}
-            />
-
-            {/* Dot pattern background */}
+            {/* Gradient Border Frame - Static */}
             <div
                 style={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px)',
-                    backgroundSize: '20px 20px',
-                    opacity: 0.4,
+                    borderRadius: '20px',
+                    padding: '1px',
+                    background: 'linear-gradient(135deg, color-mix(in srgb, var(--card-border) 200%, transparent) 0%, var(--card-border) 100%)',
                     pointerEvents: 'none',
+                    opacity: 0.5,
                 }}
             />
 
-            {/* Primary Glow overlay */}
-            <motion.div
-                animate={{
-                    opacity: isHovered ? 0.4 : 0,
-                }}
-                transition={{ duration: 0.3 }}
+            {/* Subtle top accent bar - Static */}
+            <div
                 style={{
                     position: 'absolute',
-                    inset: 0,
-                    background:
-                        'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5), transparent 65%)',
+                    top: 0,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '40%',
+                    height: '3px',
+                    background: 'linear-gradient(90deg, transparent, var(--card-border), transparent)',
                     pointerEvents: 'none',
-                }}
-            />
-
-            {/* Secondary intense glow */}
-            <motion.div
-                animate={{
-                    opacity: isHovered ? 0.3 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    inset: '-20%',
-                    background:
-                        'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4), transparent 50%)',
-                    pointerEvents: 'none',
-                    filter: 'blur(30px)',
-                }}
-            />
-
-            {/* Edge highlight */}
-            <motion.div
-                animate={{
-                    opacity: isHovered ? 0.6 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    inset: -1,
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.5), transparent 60%)',
-                    borderRadius: '16px',
-                    pointerEvents: 'none',
+                    borderRadius: '20px 20px 0 0',
                 }}
             />
 
@@ -254,32 +145,7 @@ function StatCard({ stat, index }: StatCardProps) {
 
 function HighlightCard({ highlight, index }: HighlightCardProps) {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
     const cardRef = useRef<HTMLDivElement>(null);
-
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const springX = useSpring(mouseX, { damping: 25, stiffness: 200 });
-    const springY = useSpring(mouseY, { damping: 25, stiffness: 200 });
-
-    const translateX = useTransform(springX, [-200, 200], [-8, 8]);
-    const translateY = useTransform(springY, [-200, 200], [-8, 8]);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (!cardRef.current) return;
-        const rect = cardRef.current.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        mouseX.set(e.clientX - centerX);
-        mouseY.set(e.clientY - centerY);
-    };
-
-    const handleMouseLeave = () => {
-        setIsHovered(false);
-        mouseX.set(0);
-        mouseY.set(0);
-    };
 
     return (
         <motion.div
@@ -288,115 +154,45 @@ function HighlightCard({ highlight, index }: HighlightCardProps) {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: index * 0.1, duration: 0.3 }}
-            onMouseMove={handleMouseMove}
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={handleMouseLeave}
             onClick={() => setIsExpanded(!isExpanded)}
+            className="highlight-card"
             style={{
                 position: 'relative',
                 padding: isExpanded ? '48px 40px' : '40px 32px',
-                background: isHovered || isExpanded ? 'rgba(255, 255, 255, 0.15)' : 'rgba(255, 255, 255, 0.03)',
-                border: `1px solid ${isExpanded ? 'var(--border-medium)' : isHovered ? 'var(--border-glow)' : 'var(--border-subtle)'}`,
-                borderRadius: '16px',
+                background: 'linear-gradient(135deg, var(--card-bg-light) 0%, var(--card-bg-dark) 100%)',
+                border: '1.5px solid var(--card-border)',
+                borderRadius: '20px',
                 overflow: 'hidden',
                 cursor: 'pointer',
-                x: translateX,
-                y: translateY,
-                transition: 'background 0.3s ease, border 0.3s ease',
+                transition: 'all 0.3s ease',
             }}
             animate={isExpanded ? { scale: 1.02 } : { scale: 1 }}
         >
-            {/* Corner Brackets */}
-            <motion.div
-                animate={isHovered || isExpanded ? { width: '24px', height: '24px' } : { width: '14px', height: '14px' }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    top: '20px',
-                    left: '20px',
-                    borderTop: '2px solid var(--border-glow)',
-                    borderLeft: '2px solid var(--border-glow)',
-                    opacity: isHovered || isExpanded ? 1 : 0.3,
-                }}
-            />
-            <motion.div
-                animate={isHovered || isExpanded ? { width: '24px', height: '24px' } : { width: '14px', height: '14px' }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    bottom: '20px',
-                    right: '20px',
-                    borderBottom: '2px solid var(--border-glow)',
-                    borderRight: '2px solid var(--border-glow)',
-                    opacity: isHovered || isExpanded ? 1 : 0.3,
-                }}
-            />
-
-            {/* Dot pattern */}
+            {/* Gradient Border Frame - Static */}
             <div
                 style={{
                     position: 'absolute',
                     inset: 0,
-                    backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px)',
-                    backgroundSize: '24px 24px',
+                    borderRadius: '20px',
+                    padding: '1px',
+                    background: 'linear-gradient(135deg, color-mix(in srgb, var(--card-border) 200%, transparent) 0%, var(--card-border) 100%)',
+                    pointerEvents: 'none',
                     opacity: 0.5,
-                    pointerEvents: 'none',
                 }}
             />
 
-            {/* Primary Glow effect */}
-            <motion.div
-                animate={{
-                    opacity: isHovered || isExpanded ? 0.4 : 0,
-                }}
+            {/* Subtle top accent bar - Static */}
+            <div
                 style={{
                     position: 'absolute',
-                    inset: 0,
-                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.5), transparent 65%)',
+                    top: 0,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: '50%',
+                    height: '3px',
+                    background: 'linear-gradient(90deg, transparent, var(--card-border), transparent)',
                     pointerEvents: 'none',
-                }}
-            />
-
-            {/* Secondary intense glow */}
-            <motion.div
-                animate={{
-                    opacity: isHovered || isExpanded ? 0.35 : 0,
-                }}
-                transition={{ duration: 0.3 }}
-                style={{
-                    position: 'absolute',
-                    inset: '-25%',
-                    background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.45), transparent 50%)',
-                    pointerEvents: 'none',
-                    filter: 'blur(40px)',
-                }}
-            />
-
-            {/* Border glow that follows cursor */}
-            <motion.div
-                animate={{
-                    opacity: isHovered ? 0.8 : 0,
-                }}
-                style={{
-                    position: 'absolute',
-                    inset: -1,
-                    background: 'linear-gradient(135deg, rgba(255,255,255,0.6), transparent 50%)',
-                    borderRadius: '16px',
-                    pointerEvents: 'none',
-                }}
-            />
-
-            {/* Expanded state glow */}
-            <motion.div
-                animate={{
-                    opacity: isExpanded ? 0.3 : 0,
-                }}
-                transition={{ duration: 0.4 }}
-                style={{
-                    position: 'absolute',
-                    inset: 0,
-                    background: 'radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.3), transparent 70%)',
-                    pointerEvents: 'none',
+                    borderRadius: '20px 20px 0 0',
                 }}
             />
 

@@ -71,7 +71,6 @@ import './Projects.css';
 type ProjectType = 'primary' | 'side';
 
 interface Project {
-    id: string;
     type: ProjectType;
     name: string;
     description: string;
@@ -145,7 +144,6 @@ const techIcons: Record<string, ReactElement> = {
 
 const projects: Project[] = [
     {
-        id: '1',
         type: 'primary',
         name: 'FinAdvisor - AI',
         description: 'FinAdvisor AI is a multi-agent financial advisory solution designed to help SMEs manage finances, build credible profiles, and access financial services. Built on LangGraph, it uses specialized AI agents to process informal business data and provide accurate, safe guidance.',
@@ -166,7 +164,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/QMLR-y0EsoQ',
     },
     {
-        id: '1',
         type: 'primary',
         name: 'Smart Restaurant System',
         description: 'The Smart Restaurant Platform is a comprehensive restaurant management ecosystem designed to streamline restaurant operations, enhance customer experience, and provide centralized platform administration.',
@@ -185,7 +182,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/l-kez8bRPS0',
     },
     {
-        id: '2',
         type: 'primary',
         name: 'CineMin - Online Movie Ticketing Website',
         description: 'A comprehensive, full-stack cinema management and ticket booking platform built with modern web technologies. The system provides a seamless experience for customers to browse movies and book tickets, while offering administrators powerful tools to manage cinema operations.',
@@ -204,7 +200,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/AeWGNoSpvGY',
     },
     {
-        id: '3',
         type: 'primary',
         name: 'Forumus - Internal Forum for University',
         description: 'A comprehensive mobile forum application ecosystem built with Android Kotlin and Spring Boot, designed specifically for university communities to facilitate academic discussions, content moderation, and real-time communication.',
@@ -223,7 +218,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/o50v57Y16vA',
     },
     {
-        id: '4',
         type: 'primary',
         name: 'StudyShare - Online Document Sharing Platform',
         description: 'A platform enables students to upload, share, and access academic materials while leveraging AI-powered features for enhanced learning experiences. Built with a microservices architecture, the application ensures scalability, maintainability, and high performance.',
@@ -243,7 +237,6 @@ const projects: Project[] = [
         demo: 'https://github.com/longtoZ/Study-Share/tree/main/images',
     },
     {
-        id: '5',
         type: 'side',
         name: 'Dream Flower - Optical Music Recognition and Audio Processing for Piano',
         description: 'A web application that utilizes Optical Music Recognition (OMR) to convert images of piano sheet music into playable audio files, allowing users to hear the music directly from the sheet images they upload.',
@@ -265,7 +258,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/_i_xELRyrVo',
     },
     {
-        id: '6',
         type: 'side',
         name: 'Gmail PC Controller System',
         description: 'A system consisting of a Linux server that listens for command from multiple Gmail accounts and several client applications that receive and execute the commands sent via email to control various aspects of the user\'s PC remotely.',
@@ -284,7 +276,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/aQrdP25BAwk',
     },
     {
-        id: '7',
         type: 'side',
         name: 'Image Segmentation and Labeling Tool',
         description: 'A web-based tool that allows users to upload images and perform segmentation and labeling tasks based on color similarity using various clustering algorithms.',
@@ -303,7 +294,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/bq-ItJV3dMY',
     },
     {
-        id: '8',
         type: 'side',
         name: 'Spacity - Extended Cloud Storage Service',
         description: 'A cloud storage web application that extends traditional file storage services by splitting files into smaller chunks and saving them in Discord channels. This approach leverages Discord\'s infrastructure to provide a unique and cost-effective cloud storage solution.',
@@ -322,7 +312,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/vi3m3ZNpoHw',
     },
     {
-        id: '9',
         type: 'side',
         name: 'Score - High School Entrance Grade Analysis System',
         description: 'A web application that analyzes high school entrance exam scores to predict admission chances and provide insights for students and parents.',
@@ -341,7 +330,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/3b1j1Y8nX1s',
     },
     {
-        id: '10',
         type: 'side',
         name: 'Trie in Autocomplete',
         description: 'A dedicated Data Structures and Algorithms project implementing a Trie data structure to power an efficient autocomplete system. It demonstrates core concepts of prefix trees and string matching algorithms used in modern search engines.',
@@ -360,7 +348,6 @@ const projects: Project[] = [
         demo: 'https://youtu.be/s2pLG1ZJhXE'
     },
     {
-        id: '11',
         type: 'side',
         name: 'VNU-LIB eBook Downloader',
         description: 'A specialized automation tool designed to streamline the process of downloading educational resources from VNU Library. It handles authentication, environment setup, and data aggregation to provide a seamless user experience.',
@@ -378,7 +365,6 @@ const projects: Project[] = [
         github: 'https://github.com/longtoZ/vnulib',
     },
     {
-        id: '12',
         type: 'side',
         name: 'Simple Gamestore',
         description: 'A modern e-commerce platform for digital game distribution, built as a comprehensive introduction to full-stack development. It features a responsive interface and essential shopping functionalities.',
@@ -397,7 +383,6 @@ const projects: Project[] = [
         demo: 'https://www.youtube.com/watch?v=319IuHgZBHc'
     },
     {
-        id: '13',
         type: 'side',
         name: 'Easier - Web Content Stylizer',
         description: 'A lightweight browser extension designed to enhance reading experiences by allowing users to customize web content styling. It provides granular control over text appearance and highlighting.',
@@ -415,7 +400,6 @@ const projects: Project[] = [
         github: 'https://github.com/longtoZ/easier',
     },
     {
-        id: '14',
         type: 'side',
         name: 'Zipper - Multiprocessing Password Cracker',
         description: 'A high-performance system utility for password recovery, leveraging multiprocessing to accelerate brute-force operations on ZIP and RAR archives. It demonstrates advanced Python concurrency patterns.',
@@ -639,16 +623,17 @@ export default function Projects() {
                     >
                         <AnimatePresence mode="popLayout">
                             {filteredProjects.map((project, index) => {
-                                const isHovered = hoveredId === project.id;
+                                const projectId = (index + 1).toString();
+                                const isHovered = hoveredId === projectId;
                                 return (
                                     <motion.div
-                                        key={project.id}
+                                        key={projectId}
                                         layout
                                         initial={{ opacity: 0, scale: 0.9 }}
                                         animate={{ opacity: 1, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.9 }}
                                         transition={{ duration: 0.3, delay: index * 0.05 }}
-                                        onMouseEnter={() => setHoveredId(project.id)}
+                                        onMouseEnter={() => setHoveredId(projectId)}
                                         onMouseLeave={() => setHoveredId(null)}
                                         onClick={() => setSelectedProject(project)}
                                         style={{

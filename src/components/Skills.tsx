@@ -47,7 +47,7 @@ const techStack: TechItem[] = [
     { icon: <SiFlask />, name: 'Flask', category: 'Backend' },
     { icon: <SiSupabase />, name: 'Supabase', category: 'Backend' },
     { icon: <SiPrisma />, name: 'Prisma', category: 'Backend' },
-    { icon: <SiLangchain />, name: 'Langchain', category: 'Tools' },
+    { icon: <SiLangchain />, name: 'LangGraph', category: 'Tools' },
     { icon: <SiSpringboot />, name: 'Spring Boot', category: 'Backend' },
     { icon: <SiSelenium />, name: 'Selenium', category: 'Tools' },
     { icon: <SiKotlin />, name: 'Kotlin', category: 'Mobile' },
